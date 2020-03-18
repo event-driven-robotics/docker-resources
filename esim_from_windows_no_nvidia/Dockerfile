@@ -26,6 +26,8 @@ RUN apt-get -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false upd
 		mesa-common-dev \
 		mesa-utils \
 		ffmpeg \
+		gedit \
+		nano \
 	&& apt-get autoremove \
     && apt-get clean \
     && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
