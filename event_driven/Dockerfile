@@ -3,7 +3,7 @@ FROM ubuntu:disco
 
 RUN apt update
 
-ARG YARP_BRANCH=devel
+ARG YARP_BRANCH=master
 ARG YARP_BUILD_TYPE=Debug
 
 # Install useful packages
@@ -22,11 +22,11 @@ RUN apt install -y \
     software-properties-common \
     wget
 
-RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
-    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' && \
-    apt update && \
-    apt install kitware-archive-keyring && \
-    apt-key --keyring /etc/apt/trusted.gpg del C1F34CDD40CD72DA
+#RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
+#    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ disco main' && \
+#    apt update && \
+#    apt install kitware-archive-keyring && \
+#    apt-key --keyring /etc/apt/trusted.gpg del C1F34CDD40CD72DA
 
 #Install opencv
 RUN DEBIAN_FRONTEND=noninteractive apt install libopencv-dev -y
@@ -64,6 +64,13 @@ RUN apt install -y \
     qml-module-qtmultimedia \
     qml-module-qtquick-dialogs \
     qml-module-qtquick-controls
+
+RUN cd /usr/local/src && \
+    git clone https://github.com/robotology/ycm.git &&\
+    cd ycm &&\
+    mkdir build && cd build &&\
+    cmake .. &&\
+    make -j 8 install
 
 # Install YARP with GUIS and Python bindings
 RUN cd /usr/local/src && \
