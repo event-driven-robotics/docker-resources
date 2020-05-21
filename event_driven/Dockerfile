@@ -1,10 +1,18 @@
-FROM ubuntu:disco
-#COPY --from=0 /var/lib/apt/lists/* /var/lib/apt/lists/
+FROM ubuntu:bionic
 
 RUN apt update
 
 ARG YARP_BRANCH=master
 ARG YARP_BUILD_TYPE=Debug
+
+
+
+RUN apt install -y \
+    apt-transport-https \
+    ca-certificates \
+    gnupg \
+    software-properties-common \
+    wget
 
 # Install useful packages
 RUN apt install -y \
@@ -14,19 +22,6 @@ RUN apt install -y \
         cmake-curses-gui \
         lsb-release \
         libssl-dev
-
-RUN apt install -y \
-    apt-transport-https \
-    ca-certificates \
-    gnupg \
-    software-properties-common \
-    wget
-
-#RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
-#    apt-add-repository 'deb https://apt.kitware.com/ubuntu/ disco main' && \
-#    apt update && \
-#    apt install kitware-archive-keyring && \
-#    apt-key --keyring /etc/apt/trusted.gpg del C1F34CDD40CD72DA
 
 #Install opencv
 RUN DEBIAN_FRONTEND=noninteractive apt install libopencv-dev -y
@@ -66,17 +61,18 @@ RUN apt install -y \
     qml-module-qtquick-controls
 
 RUN cd /usr/local/src && \
-    git clone https://github.com/robotology/ycm.git &&\
-    cd ycm &&\
-    mkdir build && cd build &&\
-    cmake .. &&\
+    git clone https://github.com/robotology/ycm.git && \
+    cd ycm && \
+    git checkout v0.10.4 && \
+    mkdir build && cd build && \
+    cmake .. && \
     make -j 8 install
 
 # Install YARP with GUIS and Python bindings
 RUN cd /usr/local/src && \
     git clone https://github.com/robotology/yarp.git &&\
     cd yarp &&\
-    git checkout $YARP_BRANCH &&\
+    git checkout v3.2.1 &&\
     mkdir build && cd build &&\
     cmake -DCMAKE_BUILD_TYPE=$YARP_BUILD_TYPE \
           -DYARP_COMPILE_BINDINGS=ON \
@@ -85,7 +81,7 @@ RUN cd /usr/local/src && \
           .. &&\
     make -j 8 install
 
-# RUN ln -s /usr/local/lib/python3/dist-packages/*yarp* /usr/local/lib/python3.7/dist-packages/
+RUN ln -s /usr/local/lib/python3/dist-packages/*yarp* /usr/local/lib/python3.6/dist-packages/
 
 RUN yarp check
 EXPOSE 10000/tcp 10000/udp
@@ -98,16 +94,11 @@ RUN apt install -y \
         libgl1-mesa-glx \
         libgl1-mesa-dri
 
-# nvidia-docker hooks
-# LABEL com.nvidia.volumes.needed="nvidia_driver"
-# ENV PATH /usr/local/nvidia/bin:${PATH}
-# ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
-
 # Event-driven libraries
 RUN cd /usr/local/src && \
     git clone https://github.com/robotology/event-driven.git &&\
     cd event-driven &&\
-    git checkout $YARP_BRANCH &&\
+    git checkout v1.4 &&\
     mkdir build && cd build &&\
     cmake -DCMAKE_BUILD_TYPE=$YARP_BUILD_TYPE \
           .. &&\
