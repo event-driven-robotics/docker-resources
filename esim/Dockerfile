@@ -29,7 +29,7 @@ RUN apt-get update && \
 
 RUN mkdir -p /sim_ws/src
 WORKDIR /sim_ws/src
-RUN catkin_init_workspace
+RUN /bin/bash -c 'source /ros_entrypoint.sh && catkin_init_workspace'
 WORKDIR /sim_ws
 RUN catkin config --extend /opt/ros/melodic --cmake-args -DCMAKE_BUILD_TYPE=Release
 
@@ -63,7 +63,6 @@ RUN touch imp_3rdparty_cuda_toolkit/CATKIN_IGNORE \
 RUN /bin/bash -c 'source /ros_entrypoint.sh && catkin build'
 
 RUN echo "source /sim_ws/devel/setup.bash" >> ~/.bashrc
-RUN cd /sim_ws/src && catkin_init_workspace
 
 RUN useradd unreal
 

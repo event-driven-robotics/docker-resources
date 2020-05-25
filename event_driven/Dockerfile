@@ -1,11 +1,13 @@
-FROM ubuntu:bionic
+ARG FROM=ubuntu:bionic
+
+FROM $FROM
+
+ARG YARP_VERSION=v3.2.1
+ARG ED_VERSION=v1.4
+ARG YCM_VERSION=v0.10.4
+ARG BUILD_TYPE=Debug
 
 RUN apt update
-
-ARG YARP_BRANCH=master
-ARG YARP_BUILD_TYPE=Debug
-
-
 
 RUN apt install -y \
     apt-transport-https \
@@ -43,8 +45,9 @@ RUN pip3 install \
     virtualenv \
     virtualenvwrapper
 
-RUN ln -s /usr/bin/python3 /usr/bin/python && \
-    echo 'source /usr/local/bin/virtualenvwrapper.sh' | cat - /root/.bashrc > temp && mv temp /root/.bashrc
+# RUN ln -s /usr/bin/python3 /usr/bin/python && 
+ENV VIRTUALENVWRAPPER_PYTHON /usr/bin/python3
+RUN echo 'source /usr/local/bin/virtualenvwrapper.sh' | cat - /root/.bashrc > temp && mv temp /root/.bashrc
 
 
 # Install QT5 for GUIS 
@@ -63,7 +66,7 @@ RUN apt install -y \
 RUN cd /usr/local/src && \
     git clone https://github.com/robotology/ycm.git && \
     cd ycm && \
-    git checkout v0.10.4 && \
+    git checkout $YCM_VERSION && \
     mkdir build && cd build && \
     cmake .. && \
     make -j 8 install
@@ -72,9 +75,9 @@ RUN cd /usr/local/src && \
 RUN cd /usr/local/src && \
     git clone https://github.com/robotology/yarp.git &&\
     cd yarp &&\
-    git checkout v3.2.1 &&\
+    git checkout $YARP_VERSION &&\
     mkdir build && cd build &&\
-    cmake -DCMAKE_BUILD_TYPE=$YARP_BUILD_TYPE \
+    cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DYARP_COMPILE_BINDINGS=ON \
           -DCREATE_PYTHON=ON \
           -DYARP_USE_PYTHON_VERSION=3 \
@@ -98,9 +101,9 @@ RUN apt install -y \
 RUN cd /usr/local/src && \
     git clone https://github.com/robotology/event-driven.git &&\
     cd event-driven &&\
-    git checkout v1.4 &&\
+    git checkout $ED_VERSION &&\
     mkdir build && cd build &&\
-    cmake -DCMAKE_BUILD_TYPE=$YARP_BUILD_TYPE \
+    cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           .. &&\
     make -j 8 install
 
