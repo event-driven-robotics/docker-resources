@@ -34,7 +34,7 @@ WORKDIR /sim_ws
 RUN catkin config --extend /opt/ros/melodic --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 WORKDIR /sim_ws/src
-RUN git clone https://github.com/uzh-rpg/rpg_esim.git
+RUN git clone https://github.com/event-driven-robotics/rpg_esim.git
 RUN git clone https://github.com/uzh-rpg/pangolin_catkin.git
 RUN git clone https://github.com/ethz-asl/catkin_boost_python_buildtool.git
 RUN git clone https://github.com/ethz-asl/numpy_eigen.git 
@@ -42,8 +42,6 @@ RUN git clone https://github.com/ethz-asl/numpy_eigen.git
 RUN sed -i -e's/git\@github.com:/https:\/\/github.com\//g' rpg_esim/dependencies.yaml
 
 RUN vcs-import < rpg_esim/dependencies.yaml
-
-COPY circlesgrid.cpp rpg_dvs_ros/dvs_calibration/src/circlesgrid.cpp
 
 WORKDIR /sim_ws/src/ze_oss
 RUN touch imp_3rdparty_cuda_toolkit/CATKIN_IGNORE \
