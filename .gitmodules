@@ -4,3 +4,15 @@
 [submodule "nvidia-opengl-docker"]
 	path = nvidia-opengl-docker
 	url = https://github.com/event-driven-robotics/nvidia-opengl-docker
+[submodule "spinnaker"]
+	path = spinnaker
+	url = https://github.com/event-driven-robotics/spinnaker-docker
+[submodule "gazebo"]
+	path = gazebo
+	url = https://github.com/event-driven-robotics/gazebo-docker
+[submodule "esim"]
+	path = esim
+	url = https://github.com/event-driven-robotics/esim-docker
+[submodule "yarp"]
+	path = yarp
+	url = https://github.com/event-driven-robotics/yarp-docker
