@@ -2,13 +2,20 @@ ARG FROM=ubuntu:bionic
 
 FROM $FROM
 
-ARG YARP_VERSION=v3.2.1
-ARG ED_VERSION=v1.4
-ARG YCM_VERSION=v0.10.4
+ARG YARP_VERSION=3.2.1
+ARG YCM_VERSION=0.10.4
 ARG BUILD_TYPE=Debug
 ARG SOURCE_FOLDER=/usr/local/src
 
 RUN apt update
+
+RUN if [ $(echo "`lsb_release -sr` < $19.04" | bc -l) ] ; then \
+        wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
+       apt-add-repository 'deb https://apt.kitware.com/ubuntu/ disco main' && \
+       apt update && \
+       apt install kitware-archive-keyring && \
+       apt-key --keyring /etc/apt/trusted.gpg del C1F34CDD40CD72DA ; \
+    fi
 
 RUN apt install -y \
     apt-transport-https \
@@ -67,7 +74,7 @@ RUN echo 'source /usr/local/bin/virtualenvwrapper.sh' | cat - /root/.bashrc > te
 RUN cd $SOURCE_FOLDER && \
     git clone https://github.com/robotology/ycm.git && \
     cd ycm && \
-    git checkout $YCM_VERSION && \
+    git checkout $vYCM_VERSION && \
     mkdir build && cd build && \
     cmake .. && \
     make -j 8 install
@@ -76,7 +83,7 @@ RUN cd $SOURCE_FOLDER && \
 RUN cd $SOURCE_FOLDER && \
     git clone https://github.com/robotology/yarp.git &&\
     cd yarp &&\
-    git checkout $YARP_VERSION &&\
+    git checkout $vYARP_VERSION &&\
     mkdir build && cd build &&\
     cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DYARP_COMPILE_BINDINGS=ON \
