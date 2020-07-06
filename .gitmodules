@@ -1,18 +1,24 @@
 [submodule "event-driven"]
 	path = event-driven
 	url = https://github.com/event-driven-robotics/event-driven-docker
+	branch=master
 [submodule "nvidia-opengl-docker"]
 	path = nvidia-opengl-docker
 	url = https://github.com/event-driven-robotics/nvidia-opengl-docker
+	branch=master
 [submodule "spinnaker"]
 	path = spinnaker
 	url = https://github.com/event-driven-robotics/spinnaker-docker
+	branch=master
 [submodule "gazebo"]
 	path = gazebo
 	url = https://github.com/event-driven-robotics/gazebo-docker
+	branch=master
 [submodule "esim"]
 	path = esim
 	url = https://github.com/event-driven-robotics/esim-docker
+	branch=master
 [submodule "yarp"]
 	path = yarp
 	url = https://github.com/event-driven-robotics/yarp-docker
+	branch=master
