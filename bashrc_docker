@@ -47,9 +47,9 @@ run_docker(){
     [ -z "$2" ] && container_name=$1 || container_name=$2
     echo "Running $image_name in container $container_name"
     docker run -it --name $container_name \
-        -v /path_to_code:/workspace \
-        -v /path_to_apps:/Applications \
-        -v /path_to_data:/datasets \
+        -v $PATH_TO_CODE:/code \
+        -v $PATH_TO_APP:/apps \
+        -v $PATH_TO_DATA:/data \
         -v /tmp/.X11-unix/:/tmp/.X11-unix \
         -e DISPLAY=unix$DISPLAY \
         "${@:3}" \
