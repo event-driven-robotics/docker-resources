@@ -7,11 +7,11 @@ Docker provides a simple and effective way to share and maintain your developmen
 
 ## Nomenclature
 
-Image: archive containing all the necessary files to run your containers. Multiple containers can be run from the same image.
-Container: active instance of an image. This is where you can run your applications and do your work
-Dockerfile: file containing all the instructions to build your image
-Build: process of creation of the image starting from a Dockerfile
-Run: process of creation of a container which runs on top of an image
+* Image: archive containing all the necessary files to run your containers. Multiple containers can be run from the same image.
+* Container: active instance of an image. This is where you can run your applications and do your work
+* Dockerfile: file containing all the instructions to build your image
+* Build: process of creation of the image starting from a Dockerfile
+* Run: process of creation of a container which runs on top of an image
 
 ## Containers descriptions
 
