@@ -74,7 +74,7 @@ PATH_TO_APP=/path/to/app
 source /path/to/bashrc_docker
 ```
 
-where you need to specify the path to the `bashrc_docker` file you just downloaded, and optionally (but strongly recommended), path to where you keep your code, your data and your applications. These three directories will be shared wit the running container so that you can work on the code that is stored in your host machine (and not risk to lose your work), get the data you need to run the code, and eventually run some applications (i.e. IDEs), from whithin your container.
+where you need to specify the path to the `bashrc_docker` file you just downloaded, and optionally (but strongly recommended), path to where you keep your code, your data and your applications. These three directories will be shared wit the running container so that you can work on the code that is stored in your host machine (and not risk to lose your work), get the data you need to run the code, and eventually run some applications (i.e. IDEs), from whithin your container. You will find them inside the container at `/data`, `/code`, `/apps`.
 
 After restarting the bash you will have available on your command line three functions with autocomplete support:
 
