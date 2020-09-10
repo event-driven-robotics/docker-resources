@@ -52,11 +52,9 @@ There are several options that you can pass to the run command and it is recomme
 
 ## Running an image with OpenGL and NVIDIA support (Linux only)
 
-To obtain NVIDIA and OpenGL support you must first install the nvidia-container-runtime package with 
+To obtain NVIDIA and OpenGL support you must first install the nvidia-container-runtime following the instruction at this [link](https://github.com/NVIDIA/nvidia-container-runtime).
 
-`sudo apt-get install nvidia-container-runtime`
-
-then a few options must be added to the run command, as shown in the following:
+Then a few options must be added to the run command, as shown in the following:
 
 `docker run -it -v /dev/:/dev --runtime=nvidia -e NVIDIA_DRIVER_CAPABILITIES=graphics --name <CONTAINER_NAME> <IMAGE_NAME>`
 
