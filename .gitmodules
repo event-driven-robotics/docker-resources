@@ -22,3 +22,6 @@
 	path = yarp
 	url = https://github.com/event-driven-robotics/yarp-docker
 	branch=master
+[submodule "atis-gen3"]
+	path = atis-gen3
+	url = ./atis-gen3/
