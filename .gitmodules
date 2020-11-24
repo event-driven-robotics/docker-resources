@@ -24,4 +24,4 @@
 	branch=master
 [submodule "atis-gen3"]
 	path = atis-gen3
-	url = ./atis-gen3/
+	url = https://github.com/event-driven-robotics/atis-gen3-docker
