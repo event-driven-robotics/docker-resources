@@ -103,6 +103,16 @@ Adds the OpenGL specific options to `run_docker`.
 * `start_docker <CONTAINER_NAME>`
 Starts and executes a bash on the specified container (must be run first).
 
+The above commands also enable screen forwarding. For it to properly work you need to authorize docker to run GUI on the XServer using the command:
+`xhost local:docker`. This command needs to be run on every reboot. To avoid that and permanently authorize docker you can add the following lines to the `/etc/profile` file:
+
+```
+if [ "$DISPLAY" != "" ]
+then
+ xhost local:docker
+fi
+```
+
 ## Building the images yourself
 
 Sometimes, you want to build the image yourself with different arguments or with some slight modification to the Dockerfile.
