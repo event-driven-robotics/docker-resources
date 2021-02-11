@@ -38,8 +38,6 @@ The meaning of the options are:
 
 :warning: remember to use `..atis-gen3:1.4` if you are using the HVGA camera
 
-We need `--privelidged` to access the USB and need `-v ` X11 forwarding to see the GUI.
-
 This will start the new container with a terminal. To close this container you can use `ctrl+d`. The container still exists (on the host type `docker ps -a` to see it's still there. Take note of the container name. Next time you want to open this same container you will need to:
 
 `docker start <container_name>`
