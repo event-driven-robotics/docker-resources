@@ -72,12 +72,14 @@ There are several options that you can pass to the run command and it is recomme
 
 To obtain NVIDIA and OpenGL support, you must first install the `nvidia-container-runtime` following the instruction at this [link](https://github.com/NVIDIA/nvidia-container-runtime).
 
+
 Then, a few options must be added to the run command, as shown in the following:
 
 ```bash
 docker run -it -v /dev/:/dev --runtime=nvidia -e NVIDIA_DRIVER_CAPABILITIES=graphics --name <CONTAINER_NAME> <IMAGE_NAME>
 ```
 
+⚠️ For newer versions of Ubuntu (>21.04) the nvidia-container-runtime might throw an error related to cgroup. (See [issue](https://github.com/NVIDIA/nvidia-docker/issues/1447)). To workaround this you can switch to the previous version of cgroup adding the following line to the kernel parameters `systemd.unified_cgroup_hierarchy=0`. Please refere to this [instructions](https://wiki.archlinux.org/title/Kernel_parameters#systemd-boot) to see how to modify these parameters.
 
 ## Getting helpers to easily run and start your containers (Linux only)
 
