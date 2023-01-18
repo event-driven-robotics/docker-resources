@@ -7,6 +7,7 @@ ARG OSQP_VERSION=v0.6.2
 ARG OSQPEIGEN_VERSION=v0.8.0
 ARG MANIF_VERSION=0.0.4
 ARG LIEGROUPCONTROLLERS_VERSION=v0.1.1
+ARG TOMLPLUSPLUS_VERSION=v2.5.0
 
 
 RUN apt update && apt install -y libspdlog-dev
@@ -46,6 +47,14 @@ RUN cd $SOURCE_FOLDER && \
 RUN cd $SOURCE_FOLDER && \
     git clone --depth=1 --branch=$LIEGROUPCONTROLLERS_VERSION https://github.com/ami-iit/lie-group-controllers.git && \
     cd lie-group-controllers && \
+    mkdir build && \
+    cd build/ && \
+    cmake .. && \
+    make -j `nproc` install
+
+RUN cd $SOURCE_FOLDER && \
+    git clone --depth=1 --branch=$TOMLPLUSPLUS_VERSION https://github.com/marzer/tomlplusplus.git && \
+    cd tomlplusplus && \
     mkdir build && \
     cd build/ && \
     cmake .. && \
