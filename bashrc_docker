@@ -62,7 +62,7 @@ run_docker_nvidia(){
     run_docker "${@}" \
       --gpus all
 }
-docker_alias_completion_wrapper __docker_complete_images run_docker_opengl --tag
+docker_alias_completion_wrapper __docker_complete_images run_docker_nvidia --tag
 
 start_docker(){
     if [ -z "$1" ]
