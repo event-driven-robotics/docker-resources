@@ -60,7 +60,14 @@ docker_alias_completion_wrapper __docker_complete_images run_docker --tag
 
 run_docker_nvidia(){
     run_docker "${@}" \
-      --gpus all
+      --gpus all \
+      -e NVIDIA_DRIVER_CAPABILITIES=all \
+      -e WAYLAND_DISPLAY \
+      -e XDG_RUNTIME_DIR \
+      -e PULSE_SERVER \
+      -v /mnt/wslg:/mnt/wslg \
+      -e LD_LIBRARY_PATH=/usr/lib/wsl/lib \
+      -v /usr/lib/wsl:/usr/lib/wsl
 }
 docker_alias_completion_wrapper __docker_complete_images run_docker_nvidia --tag
 
