@@ -18,6 +18,8 @@ services:
     # add gui support
     environment:
       - PORT_NAME=${PORT_NAME}
+      - DATA_WIDTH=${DATA_WIDTH}
+      - DATA_HEIGHT=${DATA_HEIGHT}
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
     entrypoint: ["/bin/bash", "/entrypoints/run_vFramer.sh"]

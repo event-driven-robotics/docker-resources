@@ -1,2 +1,2 @@
 yarp detect --write
-vFramer vFramer --src ${PORT_NAME} --height 720 --width 960
+vFramer vFramer --src ${PORT_NAME} --height ${DATA_HEIGHT} --width ${DATA_WIDTH}
