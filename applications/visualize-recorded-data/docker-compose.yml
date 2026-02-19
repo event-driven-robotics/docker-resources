@@ -1,0 +1,39 @@
+services:
+  yarpserver:
+    container_name: yarpserver
+    image: eventdrivenrobotics/atis-gen3:focal_yarp_v3.8.1_ed_vmain
+    network_mode: host
+    volumes:
+      - ./entrypoints:/entrypoints
+    entrypoint: ["/bin/bash", "/entrypoints/run_yarpserver.sh"]
+  vFramer:
+    container_name: vFramer
+    image: eventdrivenrobotics/atis-gen3:focal_yarp_v3.8.1_ed_vmain
+    network_mode: host
+    volumes:
+      - ./entrypoints:/entrypoints
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on:
+      - yarpserver
+    # add gui support
+    environment:
+      - PORT_NAME=${PORT_NAME}
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    entrypoint: ["/bin/bash", "/entrypoints/run_vFramer.sh"]
+  
+  yarpdataplayer:
+    container_name: yarpdataplayer
+    image: eventdrivenrobotics/atis-gen3:focal_yarp_v3.8.1_ed_vmain
+    network_mode: host
+    volumes:
+      - ./entrypoints:/entrypoints
+      - ${DATA_PATH}:/data
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on:
+      - yarpserver
+    # add gui support
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    entrypoint: ["/bin/bash", "/entrypoints/run_yarpdataplayer.sh"]
