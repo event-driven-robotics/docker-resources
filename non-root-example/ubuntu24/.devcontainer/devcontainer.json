@@ -1,0 +1,10 @@
+{
+  "name": "Non-root example",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "ubuntu",
+  "updateRemoteUserUID": true,
+  "overrideCommand": true
+}
